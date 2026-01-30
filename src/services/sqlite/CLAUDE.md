@@ -7,6 +7,7 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
-| #47 | 9:22 PM | 🔵 | claude-mem UI lacks Chinese localization and multi-window session filtering | ~346 |
-| #48 | " | ⚖️ | Proposed implementation approach for Chinese i18n and session filtering | ~374 |
+| #119 | 9:58 PM | 🔵 | Observations module structure examined | ~276 |
+| #33 | 9:19 PM | 🔵 | Database schema uses comprehensive indexing with foreign key constraints | ~617 |
+| #28 | 9:18 PM | 🔵 | Database schema tracks sessions by project name only, no port or window isolation | ~644 |
 </claude-mem-context>

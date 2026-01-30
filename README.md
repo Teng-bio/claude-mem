@@ -109,7 +109,7 @@
 Start a new Claude Code session in the terminal and enter the following commands:
 
 ```
-> /plugin marketplace add thedotmack/claude-mem
+> /plugin marketplace add Teng-bio/claude-mem
 
 > /plugin install claude-mem
 ```

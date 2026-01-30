@@ -7,6 +7,7 @@
 
 | ID | Time | T | Title | Read |
 |----|------|---|-------|------|
+| #123 | 9:58 PM | 🔵 | Multi-window session filtering architecture explored | ~534 |
 | #61 | 9:23 PM | 🔵 | Viewer UI types define comprehensive settings and real-time event streaming interfaces | ~753 |
 | #25 | 9:18 PM | 🔵 | Viewer App architecture uses project filtering but lacks multi-session isolation | ~520 |
 </claude-mem-context>
