@@ -83,14 +83,14 @@ function ChipGroup({
             className={`chip-action ${allSelected ? 'active' : ''}`}
             onClick={onSelectAll}
           >
-            All
+            全选
           </button>
           <button
             type="button"
             className={`chip-action ${noneSelected ? 'active' : ''}`}
             onClick={onSelectNone}
           >
-            None
+            清空
           </button>
         </div>
       </div>
@@ -248,10 +248,10 @@ export function ContextSettingsModal({
       <div className="context-settings-modal" onClick={(e) => e.stopPropagation()}>
         {/* Header */}
         <div className="modal-header">
-          <h2>Settings</h2>
+          <h2>设置</h2>
           <div className="header-controls">
             <label className="preview-selector">
-              Preview for:
+              预览项目：
               <select
                 value={selectedProject || ''}
                 onChange={(e) => setSelectedProject(e.target.value)}
@@ -264,7 +264,7 @@ export function ContextSettingsModal({
             <button
               onClick={onClose}
               className="modal-close-btn"
-              title="Close (Esc)"
+              title="关闭 (Esc)"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <line x1="18" y1="6" x2="6" y2="18" />
@@ -281,7 +281,7 @@ export function ContextSettingsModal({
             <div className="preview-content">
               {error ? (
                 <div style={{ color: '#ff6b6b' }}>
-                  Error loading preview: {error}
+                  加载预览出错：{error}
                 </div>
               ) : (
                 <TerminalPreview content={preview} isLoading={isLoading} />
@@ -293,12 +293,12 @@ export function ContextSettingsModal({
           <div className="settings-column">
             {/* Section 1: Loading */}
             <CollapsibleSection
-              title="Loading"
-              description="How many observations to inject"
+              title="加载设置"
+              description="注入多少条观察记录"
             >
               <FormField
-                label="Observations"
-                tooltip="Number of recent observations to include in context (1-200)"
+                label="观察记录数"
+                tooltip="包含在上下文中的最近观察记录数量 (1-200)"
               >
                 <input
                   type="number"
@@ -309,8 +309,8 @@ export function ContextSettingsModal({
                 />
               </FormField>
               <FormField
-                label="Sessions"
-                tooltip="Number of recent sessions to pull observations from (1-50)"
+                label="会话数"
+                tooltip="从多少个最近会话中提取观察记录 (1-50)"
               >
                 <input
                   type="number"
@@ -324,11 +324,11 @@ export function ContextSettingsModal({
 
             {/* Section 2: Filters */}
             <CollapsibleSection
-              title="Filters"
-              description="Which observation types to include"
+              title="过滤器"
+              description="包含哪些类型的观察记录"
             >
               <ChipGroup
-                label="Type"
+                label="类型"
                 options={observationTypes}
                 selectedValues={getArrayValues('CLAUDE_MEM_CONTEXT_OBSERVATION_TYPES')}
                 onToggle={(value) => toggleArrayValue('CLAUDE_MEM_CONTEXT_OBSERVATION_TYPES', value)}
@@ -336,7 +336,7 @@ export function ContextSettingsModal({
                 onSelectNone={() => setAllArrayValues('CLAUDE_MEM_CONTEXT_OBSERVATION_TYPES', [])}
               />
               <ChipGroup
-                label="Concept"
+                label="概念"
                 options={observationConcepts}
                 selectedValues={getArrayValues('CLAUDE_MEM_CONTEXT_OBSERVATION_CONCEPTS')}
                 onToggle={(value) => toggleArrayValue('CLAUDE_MEM_CONTEXT_OBSERVATION_CONCEPTS', value)}
@@ -347,14 +347,14 @@ export function ContextSettingsModal({
 
             {/* Section 3: Display */}
             <CollapsibleSection
-              title="Display"
-              description="What to show in context tables"
+              title="显示设置"
+              description="在上下文表格中显示什么内容"
             >
               <div className="display-subsection">
-                <span className="subsection-label">Full Observations</span>
+                <span className="subsection-label">完整观察记录</span>
                 <FormField
-                  label="Count"
-                  tooltip="How many observations show expanded details (0-20)"
+                  label="数量"
+                  tooltip="显示展开详情的观察记录数量 (0-20)"
                 >
                   <input
                     type="number"
@@ -365,40 +365,40 @@ export function ContextSettingsModal({
                   />
                 </FormField>
                 <FormField
-                  label="Field"
-                  tooltip="Which field to expand for full observations"
+                  label="展开字段"
+                  tooltip="完整观察记录要展开哪个字段"
                 >
                   <select
                     value={formState.CLAUDE_MEM_CONTEXT_FULL_FIELD || 'narrative'}
                     onChange={(e) => updateSetting('CLAUDE_MEM_CONTEXT_FULL_FIELD', e.target.value)}
                   >
-                    <option value="narrative">Narrative</option>
-                    <option value="facts">Facts</option>
+                    <option value="narrative">叙述</option>
+                    <option value="facts">事实</option>
                   </select>
                 </FormField>
               </div>
 
               <div className="display-subsection">
-                <span className="subsection-label">Token Economics</span>
+                <span className="subsection-label">Token 统计</span>
                 <div className="toggle-group">
                   <ToggleSwitch
                     id="show-read-tokens"
-                    label="Read cost"
-                    description="Tokens to read this observation"
+                    label="读取成本"
+                    description="读取此观察记录所需的 Token 数"
                     checked={formState.CLAUDE_MEM_CONTEXT_SHOW_READ_TOKENS === 'true'}
                     onChange={() => toggleBoolean('CLAUDE_MEM_CONTEXT_SHOW_READ_TOKENS')}
                   />
                   <ToggleSwitch
                     id="show-work-tokens"
-                    label="Work investment"
-                    description="Tokens spent creating this observation"
+                    label="工作投入"
+                    description="创建此观察记录消耗的 Token 数"
                     checked={formState.CLAUDE_MEM_CONTEXT_SHOW_WORK_TOKENS === 'true'}
                     onChange={() => toggleBoolean('CLAUDE_MEM_CONTEXT_SHOW_WORK_TOKENS')}
                   />
                   <ToggleSwitch
                     id="show-savings-amount"
-                    label="Savings"
-                    description="Total tokens saved by reusing context"
+                    label="节省量"
+                    description="通过复用上下文节省的总 Token 数"
                     checked={formState.CLAUDE_MEM_CONTEXT_SHOW_SAVINGS_AMOUNT === 'true'}
                     onChange={() => toggleBoolean('CLAUDE_MEM_CONTEXT_SHOW_SAVINGS_AMOUNT')}
                   />
@@ -408,36 +408,36 @@ export function ContextSettingsModal({
 
             {/* Section 4: Advanced */}
             <CollapsibleSection
-              title="Advanced"
-              description="AI provider and model selection"
+              title="高级设置"
+              description="AI 提供商和模型选择"
               defaultOpen={false}
             >
               <FormField
-                label="AI Provider"
-                tooltip="Choose between Claude (via Agent SDK) or Gemini (via REST API)"
+                label="AI 提供商"
+                tooltip="选择 Claude (通过 Agent SDK) 或 Gemini (通过 REST API)"
               >
                 <select
                   value={formState.CLAUDE_MEM_PROVIDER || 'claude'}
                   onChange={(e) => updateSetting('CLAUDE_MEM_PROVIDER', e.target.value)}
                 >
-                  <option value="claude">Claude (uses your Claude account)</option>
-                  <option value="gemini">Gemini (uses API key)</option>
-                  <option value="openrouter">OpenRouter (multi-model)</option>
+                  <option value="claude">Claude (使用你的 Claude 账户)</option>
+                  <option value="gemini">Gemini (使用 API 密钥)</option>
+                  <option value="openrouter">OpenRouter (多模型)</option>
                 </select>
               </FormField>
 
               {formState.CLAUDE_MEM_PROVIDER === 'claude' && (
                 <FormField
-                  label="Claude Model"
-                  tooltip="Claude model used for generating observations"
+                  label="Claude 模型"
+                  tooltip="用于生成观察记录的 Claude 模型"
                 >
                   <select
                     value={formState.CLAUDE_MEM_MODEL || 'haiku'}
                     onChange={(e) => updateSetting('CLAUDE_MEM_MODEL', e.target.value)}
                   >
-                    <option value="haiku">haiku (fastest)</option>
-                    <option value="sonnet">sonnet (balanced)</option>
-                    <option value="opus">opus (highest quality)</option>
+                    <option value="haiku">haiku (最快)</option>
+                    <option value="sonnet">sonnet (均衡)</option>
+                    <option value="opus">opus (最高质量)</option>
                   </select>
                 </FormField>
               )}
@@ -445,19 +445,19 @@ export function ContextSettingsModal({
               {formState.CLAUDE_MEM_PROVIDER === 'gemini' && (
                 <>
                   <FormField
-                    label="Gemini API Key"
-                    tooltip="Your Google AI Studio API key (or set GEMINI_API_KEY env var)"
+                    label="Gemini API 密钥"
+                    tooltip="你的 Google AI Studio API 密钥 (或设置 GEMINI_API_KEY 环境变量)"
                   >
                     <input
                       type="password"
                       value={formState.CLAUDE_MEM_GEMINI_API_KEY || ''}
                       onChange={(e) => updateSetting('CLAUDE_MEM_GEMINI_API_KEY', e.target.value)}
-                      placeholder="Enter Gemini API key..."
+                      placeholder="输入 Gemini API 密钥..."
                     />
                   </FormField>
                   <FormField
-                    label="Gemini Model"
-                    tooltip="Gemini model used for generating observations"
+                    label="Gemini 模型"
+                    tooltip="用于生成观察记录的 Gemini 模型"
                   >
                     <select
                       value={formState.CLAUDE_MEM_GEMINI_MODEL || 'gemini-2.5-flash-lite'}
@@ -471,8 +471,8 @@ export function ContextSettingsModal({
                   <div className="toggle-group" style={{ marginTop: '8px' }}>
                     <ToggleSwitch
                       id="gemini-rate-limiting"
-                      label="Rate Limiting"
-                      description="Enable for free tier (10-30 RPM). Disable if you have billing set up (1000+ RPM)."
+                      label="速率限制"
+                      description="免费版启用 (10-30 RPM)。已付费可禁用 (1000+ RPM)。"
                       checked={formState.CLAUDE_MEM_GEMINI_RATE_LIMITING_ENABLED === 'true'}
                       onChange={(checked) => updateSetting('CLAUDE_MEM_GEMINI_RATE_LIMITING_ENABLED', checked ? 'true' : 'false')}
                     />
@@ -483,19 +483,19 @@ export function ContextSettingsModal({
               {formState.CLAUDE_MEM_PROVIDER === 'openrouter' && (
                 <>
                   <FormField
-                    label="OpenRouter API Key"
-                    tooltip="Your OpenRouter API key from openrouter.ai (or set OPENROUTER_API_KEY env var)"
+                    label="OpenRouter API 密钥"
+                    tooltip="你的 OpenRouter API 密钥 (或设置 OPENROUTER_API_KEY 环境变量)"
                   >
                     <input
                       type="password"
                       value={formState.CLAUDE_MEM_OPENROUTER_API_KEY || ''}
                       onChange={(e) => updateSetting('CLAUDE_MEM_OPENROUTER_API_KEY', e.target.value)}
-                      placeholder="Enter OpenRouter API key..."
+                      placeholder="输入 OpenRouter API 密钥..."
                     />
                   </FormField>
                   <FormField
-                    label="OpenRouter Model"
-                    tooltip="Model identifier from OpenRouter (e.g., anthropic/claude-3.5-sonnet, google/gemini-2.0-flash-thinking-exp)"
+                    label="OpenRouter 模型"
+                    tooltip="OpenRouter 模型标识符 (如 anthropic/claude-3.5-sonnet, google/gemini-2.0-flash-thinking-exp)"
                   >
                     <input
                       type="text"
@@ -505,8 +505,8 @@ export function ContextSettingsModal({
                     />
                   </FormField>
                   <FormField
-                    label="Site URL (Optional)"
-                    tooltip="Your site URL for OpenRouter analytics (optional)"
+                    label="网站 URL (可选)"
+                    tooltip="用于 OpenRouter 分析的网站 URL (可选)"
                   >
                     <input
                       type="text"
@@ -516,8 +516,8 @@ export function ContextSettingsModal({
                     />
                   </FormField>
                   <FormField
-                    label="App Name (Optional)"
-                    tooltip="Your app name for OpenRouter analytics (optional)"
+                    label="应用名称 (可选)"
+                    tooltip="用于 OpenRouter 分析的应用名称 (可选)"
                   >
                     <input
                       type="text"
@@ -530,8 +530,8 @@ export function ContextSettingsModal({
               )}
 
               <FormField
-                label="Worker Port"
-                tooltip="Port for the background worker service"
+                label="Worker 端口"
+                tooltip="后台 Worker 服务的端口"
               >
                 <input
                   type="number"
@@ -545,15 +545,15 @@ export function ContextSettingsModal({
               <div className="toggle-group" style={{ marginTop: '12px' }}>
                 <ToggleSwitch
                   id="show-last-summary"
-                  label="Include last summary"
-                  description="Add previous session's summary to context"
+                  label="包含上次总结"
+                  description="将上一个会话的总结添加到上下文"
                   checked={formState.CLAUDE_MEM_CONTEXT_SHOW_LAST_SUMMARY === 'true'}
                   onChange={() => toggleBoolean('CLAUDE_MEM_CONTEXT_SHOW_LAST_SUMMARY')}
                 />
                 <ToggleSwitch
                   id="show-last-message"
-                  label="Include last message"
-                  description="Add previous session's final message"
+                  label="包含上条消息"
+                  description="添加上一个会话的最后一条消息"
                   checked={formState.CLAUDE_MEM_CONTEXT_SHOW_LAST_MESSAGE === 'true'}
                   onChange={() => toggleBoolean('CLAUDE_MEM_CONTEXT_SHOW_LAST_MESSAGE')}
                 />
@@ -572,7 +572,7 @@ export function ContextSettingsModal({
             onClick={handleSave}
             disabled={isSaving}
           >
-            {isSaving ? 'Saving...' : 'Save'}
+            {isSaving ? '保存中...' : '保存'}
           </button>
         </div>
       </div>
